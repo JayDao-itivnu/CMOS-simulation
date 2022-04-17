@@ -1,0 +1,18 @@
+clear all, close all,
+syms Vin Vin1_syms Vout_sat Vout_sat_n Vout_tri Vout_tri_n kn Vth Rd Vdd
+
+file = 'test_audio.wav';
+[y,Fs] = audioread(file);
+% sound(y,Fs)
+y1 = y .*0.05;
+sound(y1,Fs)
+y1
+t=0:1/Fs:(length(y)-1)/Fs;
+
+
+%MOS parameters:% kn = 1e-3; % kn = 1/2*umn*Cox*W/L, Vth = 1.5; % Threshold volgate
+Vth_0 = 1.5;
+kn_0 = 1e-3;
+%Circuit parameters % Rd = 1e3; % Vdd = 10;
+Vdd_0 = 10;
+Rd_0 = 1e3;
