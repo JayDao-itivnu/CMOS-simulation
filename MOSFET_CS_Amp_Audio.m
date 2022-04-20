@@ -17,7 +17,7 @@ t=0:1/Fs:(length(y)-1)/Fs;
 
 
 %MOS parameters:% kn = 1e-3; % kn = 1/2*umn*Cox*W/L, Vth = 1.5; % Threshold volgate
-Vth_0 = 1.5;
+Vth_0 = 0.15;
 kn_0 = 1e-3;
 %Circuit parameters % Rd = 1e3; % Vdd = 10;
 Vdd_0 = 1;
@@ -62,4 +62,45 @@ for i=1:1:length(t)
 end
 Vout_right = Vout_right.';
 % sound(Vout_right,Fs)
+   
+figure(2), grid on, hold on,
+subplot(3,1,1), grid on, hold on,
+hl1 = plot(t,Vin_0); % Input voltage
+hl2 = plot(t,ones(1,length(t))*Vth_0); % Threshold voltage
+hl3 = plot(t,ones(1,length(t))*Vin1); % Saturation - Triode transision voltage
+ylabel('Vin','FontSize', 12);
+
+subplot(3,1,2), grid on, hold on,
+hl4 = plot(t,Vout_n); % Output voltage
+ylabel('Vout','FontSize', 12);
+
+subplot(3,1,3), grid on, hold on,
+hl5 = plot(t,gm_n);
+
+ax1 = gca;
+set(ax1,'XColor','k','YColor','k');
+set(get(ax1,'XLabel'),'String','Time - s','FontSize', 12);
+set(get(ax1,'YLabel'),'String','Gm','FontSize', 12);
+set(ax1,'FontSize', 12);
+set(ax1,'Box','On');
+
+set(hl1,'LineWidth',2);
+set(hl1,'LineStyle','-');
+set(hl1,'Color','r');
+
+set(hl2,'LineWidth',2);
+set(hl2,'LineStyle','--');
+set(hl2,'Color','k');
+
+set(hl3,'LineWidth',2);
+set(hl3,'LineStyle','--');
+set(hl3,'Color','m');
+
+set(hl4,'LineWidth',2);
+set(hl4,'LineStyle','-');
+set(hl4,'Color','b');
+
+set(hl5,'LineWidth',2);
+set(hl5,'LineStyle','-');
+set(hl5,'Color','b');
 

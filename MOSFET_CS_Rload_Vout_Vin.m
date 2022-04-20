@@ -3,8 +3,12 @@
 %Common-Source Stage Amplifier
 %with Resistance load
 
-clear all, close all,
-syms Vin Vin1_syms Vout_sat Vout_sat_n Vout_tri Vout_tri_n kn Vth Rd Vdd
+%clear all, close all,
+syms Vin Vin1_syms Vout_sat Vout_sat_n Vout_tri Vout_tri_n kn Vth Rd Vdd;
+Vamp = 1;
+freq = 10^3;
+t=1:10^-6:2*10^-3;
+%Vin1 = Vamp*cos(2*pi*freq*t);
 
 %MOS parameters:% kn = 1e-3; % kn = 1/2*umn*Cox*W/L, Vth = 1.5; % Threshold volgate
 Vth_0 = 1.5;
@@ -15,8 +19,8 @@ Rd_0 = 1e3;
 
 % Solving for Vin1
 
-Vin1_syms = solve((Vin1_syms-Vth)-(Vdd-Rd*kn*(Vin1_syms-Vth)^2),Vin1_syms);
-Vin1_n = subs(Vin1_syms,[Vdd Rd kn Vth],[10 1e3 1e-3 1.5]);% Symbolic substitution
+Vin1_syms_ = solve((Vin1_syms-Vth)-(Vdd-Rd*kn*(Vin1_syms-Vth)^2), Vin1_syms);
+Vin1_n = subs(Vin1_syms_,[Vdd Rd kn Vth],[10 1e3 1e-3 1.5]);% Symbolic substitution
 Vin1 = double(Vin1_n(1)); % Take the positive result
 
 %In saturation region: Vout = Vdd - Rd*kn*(Vin - Vth)^2
@@ -26,8 +30,8 @@ Vout_sat_n = subs(Vout_sat,[Vdd Rd kn Vth],[10 1e3 1e-3 1.5]);
 
 %In triode region: Vout_tri = Vdd - Rd*kn*(2*(Vin-Vth)*Vout_tri-Vout_tri^2)
 
-Vout_tri = solve(Vout_tri-(Vdd - Rd*kn*(2*(Vin-Vth)*Vout_tri-Vout_tri^2)),Vout_tri);
-Vout_tri_n = subs(Vout_tri(2),[Vdd Rd kn Vth],[10 1e3 1e-3 1.5]);
+Vout_tri_ = solve(Vout_tri-(Vdd - Rd*kn*(2*(Vin-Vth)*Vout_tri-Vout_tri^2)),Vout_tri);
+Vout_tri_n = subs(Vout_tri_(2),[Vdd Rd kn Vth],[10 1e3 1e-3 1.5]);
 
 % Input signal
 

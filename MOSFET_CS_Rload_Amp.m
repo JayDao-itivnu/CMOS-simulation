@@ -27,11 +27,18 @@ Vout_tri = solve(Vout_tri-(Vdd - Rd*kn*(2*(Vin-Vth)*Vout_tri-Vout_tri^2)),Vout_t
 Vout_tri_n = subs(Vout_tri(2),[Vdd Rd kn Vth],[10 Rd_0 1e-3 1.5]);
 
 % Input signal
-t = 0:1e-5:2e-3;
-Vin_dc = 3.0; % Sinh vien thu voi cac dien ap bias khac nhau
-Vin_am = 0.5; % Sinh vien thu voi cac bien do tin hieu loi vao khac nhau
-Vin_f = 1e3;
-Vin_0 = Vin_dc + Vin_am*cos(2*pi*Vin_f*t+3*pi/2);
+% t = 0:1e-5:2e-3;
+Vin_dc = 6; % Sinh vien thu voi cac dien ap bias khac nhau
+% Vin_am = 0.5; % Sinh vien thu voi cac bien do tin hieu loi vao khac nhau
+% Vin_f = 1e3;
+% Vin_0 = Vin_dc + Vin_am*cos(2*pi*Vin_f*t+3*pi/2);
+file = 'test_audio.wav';
+[y,Fs] = audioread(file);
+t_source = 0:1/Fs:(length(y)-1)/Fs;
+t = t_source(800000:900000);
+y1_right = y(:,1);
+Vin_0 = Vin_dc + 0.5*y1_right(800000:900000);
+
 
 Vout_n = zeros(1,length(t));
 gm_n = zeros(1,length(Vin_0));

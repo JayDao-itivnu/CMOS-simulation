@@ -4,7 +4,7 @@
 clear all, close all,
 
 kn=1e-3; vt=1.5;
-Vds=0:0.5:12;
+Vds=0:0.1:12;
 Vgs=4:1:8;
 m=length(Vds);
 n=length(Vgs);
